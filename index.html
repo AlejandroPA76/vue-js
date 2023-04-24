@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>aprendiendo vueJS</title>
+</head>
+<body>
+
+	<!instanciamos con id=app al elemento vuejs->
+<div id="app">
+<!--
+<! v-text para que no pestanee el contenido	
+<! v-show con es para mostra o no el resultado en el h1 ->	
+<! v-if si se cumple la condicion->
+<! v-else si no se cumple la condicion->	
+
+
+\-->
+<h1 v-if="message.length >2" v-text="'hola '+message"></h1>
+<h1 v-else>Escribe tu nombre</h1>	
+	<input type="text" v-model="message"> 
+<h2>Lista de Tareas</h2>
+<ul>
+	<li v-for="tarea in tareas">
+		<span v-text="tarea.title"></span>
+		<small v-if="tarea.completed">completada</small>
+		<small v-else>incompleta</small>
+	</li>
+
+</ul>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+
+<script>
+	//guardamos la instancia en una variable
+	var app = new Vue({
+		el: '#app', //el de elemento y debemos instanciar este elemento con un div
+		data: { ///data es un objeto
+			message: "aprendible",
+			tareas:[
+				{title: "Aprender Laravel",completed:true},
+				{title: "Aprender VueJS", completed:true},
+				{title: "Aprender mysql",completed:false}
+				]
+		}
+	});
+</script>
+
+</body>
+</html>
+
+<!  app.tareas[0].completed=true  esto hace cambios a la tareas para probar si es reactivo->
+<! app.tareas.push({title: "Terminar esta leccion", completed: false});  con esto agrego otra cosa al array->
