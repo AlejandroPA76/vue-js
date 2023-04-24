@@ -7,19 +7,24 @@
 </head>
 <body>
 
-	<!instanciamos con id=app al elemento vuejs->
+	<!--instanciamos con id=app al elemento vuejs-->
 <div id="app">
 <!--
 <! v-text para que no pestanee el contenido	
 <! v-show con es para mostra o no el resultado en el h1 ->	
 <! v-if si se cumple la condicion->
 <! v-else si no se cumple la condicion->	
+<! v-on:click  evento a la escucha->
+<! message = message.split('').reverse().join(''), el mensaje es remplazado por un array y a su vez se ordena alrevez y con el join se vuelve a unir sin separaciones->
 
-
+@click=  es lo mismo que v-on:click
 \-->
 <h1 v-if="message.length >2" v-text="'hola '+message"></h1>
 <h1 v-else>Escribe tu nombre</h1>	
 	<input type="text" v-model="message"> 
+
+	<button @click="reverse">Invertir</button>
+
 <h2>Lista de Tareas</h2>
 <ul>
 	<li v-for="tarea in tareas">
@@ -44,6 +49,11 @@
 				{title: "Aprender VueJS", completed:true},
 				{title: "Aprender mysql",completed:false}
 				]
+		},
+		methods: {
+			reverse: function(){
+				this.message = this.message.split('').reverse().join('');
+			}
 		}
 	});
 </script>
