@@ -1,20 +1,25 @@
 Vue.component('tasks', {
-	template: `
-	<div>
-	<h2>Lista de Tareas</h2>
-	<h4 v-if="completed">Tareas completas: {{ completed}}</h4>
-	<h4 v-if="incompleted">Tareas incompletas: {{ incompleted}}</h4>
-
-	<ul>
-		<li is="task" v-for="task in tasks" v-bind:task="task"></li>
-		
-		<li class="form-inline">	
-			<input v-on:keyup.enter="add"  v-model="newTask" type="text" class="form-control">
+	template: `<section class="todoapp">
+<header class="header">
+	<h1>Tareas</h1>
+	<input v-on:keyup.enter="add"  v-model="newTask" type="text" class="new-todo">
 		   <button v-on:click="add" class="btn btn-primary">+</button> 
-		</li>
+	
+</header>
 
+<section>
+
+	<ul class="todo-list">
+		<li class="todo" is="task" v-for="task in tasks" v-bind:task="task"></li>
+		
 	</ul>
-	</div>`,
+</section>
+<footer class="footer">
+	<span class="todo-count">completas: {{ completed}} | incompletas: {{ incompleted}}</span>
+	
+</footer>
+	
+	</section>`,
 	data: function(){ ///data es un objeto
 			//se agrega una variable vacia porque da error si no se inicializa
 			//luego de eso se guarda el nuevo elemento a newtask para introducirlo en tasks			newTask: "",
@@ -66,23 +71,17 @@ Vue.component('tasks', {
 
 Vue.component('task',{
 	props:['task'],
-	template: `
-	<li >
-			<span v-text="task.title"></span>
-			<span @click="complete()" :class="Classes"></span>
-			 
+	template: `<li :class="Classes ">
+		<div class="view"> 
+			<input class="toggle" type="checkbox" v-model="task.completed" />
+			<label v-text="task.title"></label>
+		</div>
 			
 		</li>`,
-		methods:{
-				
-			complete: function(){
-				this.task.completed = ! this.task.completed;
-			}
-		},
+		
 		computed:{
 			Classes: function(){
-				console.log('css changed');
-				return ['glyphicon', this.task.completed ? 'glyphicon-check' : 'glyphicon-unchecked'];
+			return {completed: this.task.completed};
 			},
 		}
 });
