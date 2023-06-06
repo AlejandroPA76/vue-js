@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>listas de tareas</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>lista de tareas del dia de hoy</h1>
+    <input type="text" v-model="newTareas">
+    <button v-on:click="addTarea">add tarea</button>
+    <!-- <label>{{tareas[2]}}</label> -->
+    <ul>
+      <!-- en tareas se guardan las tareas de cada iteracion
+      y en item se guarda la iteracion del loop
+       -->
+       <li v-for="(tarea,item) in tareas" :key="item">
+       {{item}} {{tarea}}
+      <!-- con el boton invocamos el metodo delTarea y le mandamos la iteracion del bucle con item -->
+       <button @click="delTarea(item)">eliminar</button>
+     </li>
+    </ul>
+  </div>
+
+
+  <script >
+    new Vue({
+      el: "#app",
+      data:{
+        newTareas: '',
+        tareas:['correr', 'dormir', 'trabajar'],
+        
+      },
+      methods:{
+        addTarea: function(){
+          //console.log(this.newTareas);
+
+        if (this.newTareas.trim() !=='') {
+          //console.log(this.newTareas);
+          //Si prefieres que las tareas nuevas se muestren al principio de la lista, puedes utilizar unshift() en lugar de push() en el método addTarea.
+
+          this.tareas.push(this.newTareas);
+          this.newTareas='';
+          console.log(this.newTareas); }
+        
+        },
+
+        //al meotodo se le hace llegar el valor de la iteracion y lo agregamos como parametro a la funcion
+        delTarea: function(item){
+          this.tareas.splice(item,1);
+          
+        }
+      }
+    })
+
+  </script>
+</body>
+</html>
