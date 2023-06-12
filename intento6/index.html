@@ -30,8 +30,18 @@
       nombre:alex
       apellido: pe
 
-      y el item es la iteracion que hizo -->
-       <input type="text" v-model="tarea.act" v-on:keyup.enter="editTarea(item,tarea.act)">
+      y el item es la iteracion que hizo 
+
+      con @select al momento de seleccionar el input desabilitado ejecuto el metodo on con el 
+      evento @select-->
+       <input 
+       type="text" 
+       v-model="tarea.act" 
+       v-on:keyup.enter="editTarea(item,tarea.act)" 
+      :disabled="item !== selecionado"
+       @select="onInput(item)"  
+      
+       >
       
       <!-- con el boton invocamos el metodo delTarea y le mandamos la iteracion del bucle con item -->
        <button @click="delTarea(item)">eliminar</button>
@@ -47,7 +57,8 @@
         newTareas: '',
         //tuve que modificar el arreglo a un arreglo de objeto para senalar que seccion voy a modificar
         tareas:[{act:'correr'},{act:'dormir'},{act:'trabajar'}],
-        
+        //true desabilita el elemento input y con false lo habilita
+        selecionado: ''
       },
       methods:{
         //agregar
@@ -82,7 +93,10 @@
         delTarea: function(item){
           this.tareas.splice(item,1);
           
-        }
+        },
+        onInput: function(item){
+        this.selecionado= item;
+        },
       }
     })
 
